@@ -8,6 +8,6 @@ Scenario: Verify Naukri page title
 
 Scenario: Successful login to naukri	
 Given User is on naukri page
-When User enters valid Username "sanketjarhad05@gmail.com"
-And User enters valid Password "Sanket@05"
+When User enters valid Credentials
+
 And User clicks on Login button

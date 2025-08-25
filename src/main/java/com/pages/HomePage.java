@@ -65,20 +65,7 @@ public class HomePage {
 	public void fileUpload(String filePath) {
 		WebElement hiddenInput = driver.findElement(By.id("attachCV"));
 
-		// Use JavaScript to set display = block
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
-
-		// Case 1: Element has display:none
-		//js.executeScript("arguments[0].style.display='block';", hiddenInput);
-
-		// Case 2: Element has visibility:hidden
-		//js.executeScript("arguments[0].style.visibility='visible';", hiddenInput);
-//
-		// Case 3: Element has opacity:0
-		//js.executeScript("arguments[0].style.opacity='1';", hiddenInput);
-
-		// Case 4: Element covered by another due to z-index
-		//js.executeScript("arguments[0].style.zIndex='9999';", hiddenInput);
+		
 
 		// Now upload the file
 		hiddenInput.sendKeys(filePath);

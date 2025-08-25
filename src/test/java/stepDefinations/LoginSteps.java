@@ -4,6 +4,7 @@ import org.junit.Assert;
 
 import com.pages.LoginPage;
 import com.qa.factory.DriverFactory;
+import com.qa.util.ConfigReader;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -25,15 +26,17 @@ public class LoginSteps {
 		Assert.assertTrue(title.contains(expectedTitleName));
 	}
 
-	@When("User enters valid Username {string}")
-	public void user_enters_valid_username(String Username) {
-		loginPage.enterUserName(Username);
+	@When("User enters valid Credentials")
+	public void user_enters_valid_Credentials() {
+		 String username = ConfigReader.getProperty("username");
+
+		loginPage.enterUserName(username);
+		String password = ConfigReader.getProperty("password");
+
+		loginPage.enterPassword(password);
 	}
 
-	@When("User enters valid Password {string}")
-	public void user_enters_valid_password(String Password) {
-		loginPage.enterPassword(Password);
-	}
+	
 
 	@When("User clicks on Login button")
 	public void user_clicks_on_login_button() {
