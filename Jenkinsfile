@@ -2,16 +2,17 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk21'       // Name you configured in Jenkins under "Global Tool Configuration"
-        maven 'Maven3'    // Also configure Maven in Jenkins
+        jdk 'jdk21'       // Must be configured in Jenkins Global Tool Configuration
+        maven 'Maven3'    // Must also be configured in Jenkins
     }
 
     stages {
         stage('Checkout') {
-            steps { (
-                git branch: 'main',
-                    git url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git'
-                   )
+            steps {
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git'
+                )
             }
         }
 
