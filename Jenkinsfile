@@ -6,15 +6,15 @@ pipeline {
         maven 'Maven3'    // Must also be configured in Jenkins
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git(
-                    branch: 'main',
-                    url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git'
-                )
-            }
-        }
+    stage('Checkout') {
+    steps {
+        git(
+            branch: 'main',
+            url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git',
+            credentialsId: 'github-creds'
+        )
+    }
+}
 
         stage('Build') {
             steps {
