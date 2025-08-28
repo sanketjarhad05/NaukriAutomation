@@ -10,7 +10,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git'
+                    git url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git'
+                     credentialsId: 'github-token'
+
             }
         }
 
