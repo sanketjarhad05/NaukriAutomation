@@ -11,7 +11,7 @@ pipeline {
             steps {
                 git(
                     branch: 'main',
-                    url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git',
+                    url: 'https://github.com/sanketjarhad05/NaukriAutomation.git',
                     credentialsId: 'github-creds'  // Add PAT credentials in Jenkins
                 )
             }
