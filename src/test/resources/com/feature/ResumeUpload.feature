@@ -7,7 +7,7 @@ Feature: Resume Management Upload on Naukri
  
   @UploadResume
   Scenario: Upload new resume
-    When User uploads a new resume file "sanket-resume-QA.pdf"
+    When User uploads a new resume file "Sanket_Jarhad_QA.pdf"
     Then Resume should be uploaded successfully
 
  
