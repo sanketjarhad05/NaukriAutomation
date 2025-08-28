@@ -2,19 +2,20 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk21'       // Must be configured in Jenkins Global Tool Configuration
-        maven 'Maven3'    // Must also be configured in Jenkins
+        jdk 'jdk21'       // Make sure JDK 21 is configured in Jenkins
+        maven 'Maven3'    // Make sure Maven is configured in Jenkins
     }
 
-    stage('Checkout') {
-    steps {
-        git(
-            branch: 'main',
-            url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git',
-            credentialsId: 'github-creds'
-        )
-    }
-}
+    stages {
+        stage('Checkout') {
+            steps {
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/sanketjarhad05/CucumberNaukriAutomation.git',
+                    credentialsId: 'github-creds'  // Add PAT credentials in Jenkins
+                )
+            }
+        }
 
         stage('Build') {
             steps {
