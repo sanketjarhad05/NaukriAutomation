@@ -15,7 +15,10 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'mvn test'
+                configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
+                    // CONFIG_FILE will be the path to your injected config.properties
+                    bat "mvn test -Dconfig.file=%CONFIG_FILE%"
+                }
             }
         }
     }

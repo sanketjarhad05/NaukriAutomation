@@ -1,41 +1,53 @@
 package com.qa.util;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-	private static Properties prop;
+    private static Properties prop;
 
-	/*
-	 * This method is used to load the properties from config.properties file.
-	 * 
-	 * @return it returns Properties prop object
-	 */
-	public static Properties init_prop() {
-		prop = new Properties();
+    /*
+     * This method is used to load the properties from config.properties file.
+     * Works in two modes:
+     * 1. Jenkins: Reads from system property -Dconfig.file (injected file).
+     * 2. Local: Reads from src/test/resources/com/config/config.properties.
+     */
+    public static Properties init_prop() {
+        if (prop == null) {
+            prop = new Properties();
+            try {
+                String configFilePath = System.getProperty("config.file"); // set by Jenkins
 
-		try {
-			FileInputStream ip = new FileInputStream(
-					System.getProperty("user.dir") + "/src/test/resources/com/config/config.properties");
-			prop = new Properties();
-			prop.load(ip);
+                InputStream input;
+                if (configFilePath != null) {
+                    // Running in Jenkins
+                    input = new FileInputStream(configFilePath);
+                    System.out.println("Loading config from Jenkins managed file: " + configFilePath);
+                } else {
+                    // Running locally
+                    input = ConfigReader.class.getClassLoader().getResourceAsStream("com/config/config.properties");
+                    System.out.println("Loading config from local resources: com/config/config.properties");
+                }
 
-		} catch (FileNotFoundException e) {
+                if (input != null) {
+                    prop.load(input);
+                } else {
+                    throw new RuntimeException("Config file not found!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException("Failed to load config.properties", e);
+            }
+        }
+        return prop;
+    }
 
-			e.printStackTrace();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		return prop;
-	}
-
-	public static String getProperty(String key) {
-		if (prop == null) {
-			init_prop(); // load properties if not already loaded
-		}
-		return prop.getProperty(key);
-	}
+    public static String getProperty(String key) {
+        if (prop == null) {
+            init_prop(); // load properties if not already loaded
+        }
+        return prop.getProperty(key);
+    }
 }
