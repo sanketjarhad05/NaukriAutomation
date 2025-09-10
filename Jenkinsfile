@@ -7,16 +7,27 @@ pipeline {
     }
 
     stages {
+
+        stage('Debug Config') {
+            steps {
+                configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
+                    bat "echo Config file injected at: %CONFIG_FILE%"
+                    bat "type %CONFIG_FILE%"   // print file content in Jenkins logs
+                }
+            }
+        }
+
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
+                    bat "mvn clean install -Dconfig.file=%CONFIG_FILE%"
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
                 configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
-                    // CONFIG_FILE will be the path to your injected config.properties
                     bat "mvn test -Dconfig.file=%CONFIG_FILE%"
                 }
             }
