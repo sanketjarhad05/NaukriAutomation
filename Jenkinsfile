@@ -6,17 +6,6 @@ pipeline {
         maven 'Maven3'
     }
 
-    stages {
-
-        stage('Debug Config') {
-            steps {
-                configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
-                    bat "echo Config file injected at: %CONFIG_FILE%"
-                    bat "type %CONFIG_FILE%"   // print file content in Jenkins logs
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
