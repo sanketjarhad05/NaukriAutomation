@@ -26,4 +26,4 @@ pipeline {
     triggers {
         cron('0 10 * * *') // Run daily at 10:00 AM
     }
-}
+
