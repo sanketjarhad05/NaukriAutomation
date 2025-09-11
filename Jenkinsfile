@@ -6,6 +6,11 @@ pipeline {
         maven 'Maven3'
     }
 
+    triggers {
+        cron('0 10 * * *') // Run daily at 10:00 AM
+    }
+
+    stages {
         stage('Build') {
             steps {
                 configFileProvider([configFile(fileId: 'naukri-config', variable: 'CONFIG_FILE')]) {
@@ -22,8 +27,4 @@ pipeline {
             }
         }
     }
-
-    triggers {
-        cron('0 10 * * *') // Run daily at 10:00 AM
-    }
-
+}
